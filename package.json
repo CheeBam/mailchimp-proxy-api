@@ -1,0 +1,23 @@
+{
+  "name": "mailchimp-proxy-api",
+  "version": "1.0.0",
+  "description": "Mailchimp proxy api",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "start.dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Cheebam/mailchimp-proxy-api.git"
+  },
+  "keywords": [],
+  "author": "Cheebam",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
