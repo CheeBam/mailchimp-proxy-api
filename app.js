@@ -6,14 +6,22 @@ const {
   DOCKER_PORT = '6969',
   MAILCHIMP_USER = 'RandomUser',
   MAILCHIMP_API_KEY,
-  MAILCHIMP_AUDIENCE_ID
+  MAILCHIMP_AUDIENCE_ID,
+  FRONTEND_URL
 } = process.env;
 
 // The 'usXX' part of the API KEY corresponds to the data center for account.
 const MAILCHIMP_SERVER_UID = /[^-]*$/.exec(MAILCHIMP_API_KEY)[0];
 
 const app = express();
+
 app.use(express.json());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", FRONTEND_URL);
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get('/', async (req, res) => {
   res.status(200).send(`Hello World! (${new Date(Date.now()).toLocaleString()})`);
@@ -54,9 +62,10 @@ app.post('/add_subscriber', async (req, res, next) => {
           const mailchimpResponse = JSON.parse(mailchimpResponseData.join(''));
           if (mailchimpResponse) {
             if (mailchimpResponse.status === 'subscribed') {
-              res.status(200).json({ data: { message: 'Subscriber has been added!', subscriber: mailchimpResponse }});
+              return res.status(200).json({ data: { message: 'Subscriber has been added!', subscriber: mailchimpResponse }});
             }
             next(mailchimpResponse);
+            
           }
         }
       

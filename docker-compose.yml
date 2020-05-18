@@ -10,6 +10,7 @@ services:
       - MAILCHIMP_USER=$MAILCHIMP_USER
       - MAILCHIMP_API_KEY=$MAILCHIMP_API_KEY
       - MAILCHIMP_AUDIENCE_ID=$MAILCHIMP_AUDIENCE_ID
+      - FRONTEND_URL=$FRONTEND_URL
     build:
       context: ./
       dockerfile: Dockerfile
